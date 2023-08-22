@@ -5,7 +5,7 @@ class zigzagconversion {
 // there is no change in x, only y until y equals Numrows, then letters are placed in x+1, y-1 until y == 0, then repeat untill end of string.
 
 // The number of total columns will equal
-//  length s/ (numRows + (numrows-1))
+// length s/ (numRows + (numrows-1))
 // Finally print the grid by row order
     public static String convert(String s, int numRows) {
 
@@ -22,28 +22,32 @@ class zigzagconversion {
 
         String[] ansStr = new String[numRows];
         for (char elem : s.toCharArray()) {
-          if (y == numRows-1) {
+          if (y >= numRows-1) {
             zigzag = true;
           } else if (y == 0) {
             zigzag = false;
           } 
-
           if (ansStr[y] != null){
             ansStr[y] = ansStr[y] + elem;
           } else {
             ansStr[y] = String.valueOf(elem);
           }
-
           if (zigzag) {
             x = x+1;
-            y = y-1;
+            if (y > 0){
+              y  = y-1;
+            }
           } else {
-            y = y+1;
+            if (y < numRows){
+              y = y+1;
+            }
           }
         }
         String answerStr = "";
         for (String elem : ansStr){
-          answerStr = answerStr + elem;
+          if (elem != null){
+            answerStr = answerStr + elem;
+          }
         }
       return answerStr;
     }
