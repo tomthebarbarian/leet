@@ -1,4 +1,4 @@
-class Solution {
+class zigzagconversion {
 // Method Convert takes a string s and prints it in (int) Numrows number of rows
 // as a zigzag
 // zigzag is defined as being in a 2 dimensional grid with column x and and row y
@@ -7,33 +7,52 @@ class Solution {
 // The number of total columns will equal
 //  length s/ (numRows + (numrows-1))
 // Finally print the grid by row order
-    public String convert(String s, int numRows) {
+    public static String convert(String s, int numRows) {
+
+        int maxlength = (s.length()/(2*numRows - 1) * numRows);
+        if (s.length()%(2*numRows - 1) > numRows) {
+          maxlength = maxlength + (s.length()%(2*numRows - 1)- numRows);
+        };
+        
         // Column
           int x = 0;
         //  Row
           int y = 0;
           boolean zigzag = false;
-          char[] answer = [];
+
+        String[] ansStr = new String[numRows];
         for (char elem : s.toCharArray()) {
-          if (y == numRows) {
+          if (y == numRows-1) {
             zigzag = true;
-          }
-          if (y == 0) {
+          } else if (y == 0) {
             zigzag = false;
+          } 
+
+          if (ansStr[y] != null){
+            ansStr[y] = ansStr[y] + elem;
+          } else {
+            ansStr[y] = String.valueOf(elem);
           }
-          answer[x][y] = elem;
+
           if (zigzag) {
             x = x+1;
             y = y-1;
           } else {
             y = y+1;
           }
-
         }
-      return answer;
+        String answerStr = "";
+        for (String elem : ansStr){
+          answerStr = answerStr + elem;
+        }
+      return answerStr;
+    }
+
+    // Paypal is hiring
+    // String zigans = Solution.convert("PAYPALISHIRING")
+    public static void main(String[] args) {
+      System.out.println(zigzagconversion.convert("PAYPALISHIRING", 3).equals("PAHNAPLSIIGYIR"));
+      // zigzagconversion.convert("PAYPALISHIRING", 3).equals("PAHNAPLSIIGYIR");
     }
 }
 
-// Paypal is hiring
-String zigans = Solution.convert("PAYPALISHIRING")
-println(zigans.equals("PAHNAPLSIIGYIR"))
